@@ -1,4 +1,34 @@
-# python_web_learning
+# Оглавление
+
+1. [Roadmap](#roadmap)
+2. [База](#base)
+    1. [Система контроля версий](#VCS)
+    2. [Базовый фронтенд](#base_frontend)
+    3. [Теория о работе интернета](#how_to_work_internet)
+    4. [Базовая работа в linux](#base_linux)
+3. [Начальные навыки](#begin)
+    1. [Python](#python-base)
+    2. [Внешние библиотеки Python которые часто используются](#python-modules)
+    3. [Базы данных](#databases)
+4. [После прохождения данной части можно пробовать искать работу](#interview)
+    1. [APIs](#apis)
+    2. [Фреймворк Django](#django)
+    3. [Кэширование](#cash)
+5. [После прохождения данной части нужно пробовать искать работу](#interview-adv)
+    1. [Инструменты для разработки](#Instruments)
+    2. [Тестирование](#testing)
+    3. [Практика](#practice)
+6. [Нужные темы](#must_learn)
+    1. [О современной разработке](#base_must_learn)
+    2. [Безопасность веб-приложений](#security)
+    3. [Качество кода](#code_qu)
+    4. [Паттерны проектирования](#patterns)
+    5. [Брокеры сообщений](#message_brokers)
+7. [Дальнейшее развитие](#adv)
+8. [Поиск работы](#work)
+
+# Roadmap <a name="roadmap"></a>
+
 <code>
   
                                                               BACKEND ROADMAP
@@ -61,47 +91,27 @@
   
 </code>
 
-# Table of contents
-1. [Introduction](#introduction)
-2. [Some paragraph](#paragraph1)
-    1. [Sub paragraph](#subparagraph1)
-3. [Another paragraph](#paragraph2)
-
-## This is the introduction <a name="introduction"></a>
-Some introduction text, formatted in heading 2 style
-
-## Some paragraph <a name="paragraph1"></a>
-The first paragraph text
-
-### Sub paragraph <a name="subparagraph1"></a>
-This is a sub paragraph, formatted in heading 3 style
-
-## Another paragraph <a name="paragraph2"></a>
-The second paragraph text
 
 
-# База
+# База <a name="base"></a>
+### Frontend <a name="base_frontend"></a>
 
-***
-***
-***
-## Frontend
-База:
+
+Необходимое:
 * Css
 * Html
 * Позиционирование флекс, флоат. 
 * Адаптивность media queries. 
 * chrome developer tools, работа с DOM деревом в ней, с сетью, с JS консолью.
 
-Углубленное изучение:
+Углубленное изучение(пока пропустить):
 * Less sass
 * JavaScript и JavaScript API браузера. 
 * Узнавать JQuery
 * Document.querySelector, работа с CSS стилями из JavaScript, переменные, циклы, функции Javascript, работа с AJAX запросами (и на стороне фронтенда, то есть JS, и на стороне бэкенда, то есть Pythonа), модель асинхронности JavaScript. 
-* JSфреймворк (реакт или Vue)
 Одолженный фак https://github.com/acilsd/wrk-fet#javascript
 
-# Как работает Интернет 
+### Как работает Интернет <a name="how_to_work_internet"></a>
 Чеклист:
 * Работа интернета, ip адреса и устройство глобальной сети. 
 * DNS и как он работает, что происходит при переходе на интернет адрес. 
@@ -114,7 +124,7 @@ The second paragraph text
 * В идеале вы должны уметь настроить механизм сессий без веб-фреймворков, просто чтобы понимать, как это всё работает под капотом вашего любимого фреймворка, того же Django. Чтобы у вас было настоящее понимание о том, что там никакой магии не происходит.
 * Кэширование на стороне клиента
 
-## Linux
+### Linux <a name="base_linux"></a>
 Чеклист:
 * Простые терминальные
 * Терминальные утилиты Linux, необходимые в разработке grep, curl,se,lsof,,awk,wget,tail,head,less,find,ssh,kill,rip,htop
@@ -123,32 +133,18 @@ The second paragraph text
 * управлению памятью
 * взаимодействие между процессами
 * posix basics(stdin,stdout,stderr,pipes)
-***
-***
-***
 
 
 
-
-
-
-
-
-
-
-# Начало
-
-***
-***
-***
-## VCS
+# Начало <a name="begin"></a>
+## VCS <a name="VCS"></a>
 * Создать аккаунт гитхаб
 * Выучить базовые команды и операции
 * Ветки и слияние веток
 * Интегрировать с IDE
 * [1123](https://gitexplorer.com/)
 
-## Python
+## Python <a name="python-base"></a>
 Основы языка: [Укус питона](http://wombat.org.ua/AByteOfPython/AByteofPythonRussian-2.02.pdf)
 
 **Книги(пролистать, конспектировать то что покажется нужным)**
@@ -167,7 +163,7 @@ The second paragraph text
 * [Кодворс](https://www.codewars.com/dashboard)
 [1](https://acmp.ru/index.asp?main=tasks)
 
-## Внешние библиотеки
+## Внешние библиотеки <a name="python-modules"></a>
 * Pillow - работа с изображениями
 * Requests -упрощенная работа с интернет протоколами
 * Beautiful soup - одна из популярнейших библиотек для парсинга
@@ -210,7 +206,7 @@ The second paragraph text
 * Third-party библиотеки. Сюда входит например requests для работы с HTTP запросами. Aiohttp для отправки асинхронных запров и в качестве асинхронного веб-сервера. 
 * Библиотеки для работы с Excel документами, PDF, XML, HTML (там beautiful soup тот же).
 
-## Базы данных.
+## Базы данных. <a name="databases"></a>
 
 * знать PostgreSQL, как ее поставить, минимально настроить, создавать там БД, таблицы, делать в них запросы. joinы с несколькими таблицами, со сложными группировками, having, оконными функциями и тд.
 * Надо знать про индексы и про хотя бы минимальную их настройку, про внешние ключи и нормализацию и денормализацию БД, конечно, надо понимать, плюсы и минусы нормализованной и денормализованной БД.
@@ -238,14 +234,13 @@ The second paragraph text
 
 
 
-
-# Можно начать ходить на собеседования(нужны проекты на гитхабе)-
+# Можно начать ходить на собеседования(нужны проекты на гитхабе) <a name="interview"></a>
 
 ***
 ***
 ***
 
-## APIs
+## APIs <a name="apis"></a>
 * json
 * soap
 * rest
@@ -254,7 +249,7 @@ The second paragraph text
 * gRPC
 * Swagger
 
-## Django
+## Django <a name="django"></a>
 [О шаблонизаторе](https://proproprogs.ru/modules/chto-eto-ispolzovanie-v-shablonah)
 [Быстрый вкат в django](https://proproprogs.ru/django/django-chto-eto-takoe-poryadok-ustanovki)
 [Документация](https://djbook.ru/rel3.0/)
@@ -286,38 +281,38 @@ The second paragraph text
 * Полнотекстовый поиск
 * В идеале еще знать DRF
 
-## Кэширование
+## Кэширование <a name="cash"></a>
 * Серверное(redis,memcached)
 * CDN,на стороне клиента
 ***
 ***
 ***
-# Нужно начать ходить на собеседования(нужны проекты на гитхабе)
+# Нужно начать ходить на собеседования(нужны проекты на гитхабе) <a name="interview-adv"></a>
 
 ***
 ***
 ***
-## Вебсерверы,инструменты(докер),CI/CD
+## Вебсерверы,инструменты(докер),CI/CD <a name="Instruments"></a>
 * В качестве CI/CD гитлаю
 * Работа с фоновыми задачами (celery)
 * Запуск задач по расписанию(кронтаб)
 * Вы должны уметь полностью настроить для себя сервер. Nginx, какой-нибудь gunicorn или uwsgi, django, celery, postgresql, redis. Вам должно быть абсолютно комфортно работать в командной строке, в консоли.
 
-## Тестирование
+## Тестирование <a name="testing"></a>
 * Какие бывают тесты, чем они отличаются, когда что использовать. Какие есть методологии разработки, связанные с тестированием и почему они хороши (TDD и тд).
 
-## Практика
+## Практика <a name="practice"></a>
 * Магазин, бронирование билетов или любая своя идея.
 * Использовать максимальное количество фишек пушить на гитхаб
 ***
 ***
 ***
-# Нужные темы
+# Нужные темы <a name="must_learn"></a>
 
 ***
 ***
 ***
-## О современной разработке и прочее
+## О современной разработке и прочее <a name="base_must_learn"></a>
 * масштабирование горизонтальное и вертикальное
 * стратегии миграций
 * agile разработка
@@ -327,7 +322,7 @@ The second paragraph text
 [1](https://github.com/satwikkansal/wtfpython)
 [2](https://habr.com/ru/company/mailru/blog/337364/)
 
-## Безопасность
+## Безопасность <a name="security"></a>
 * Хэш-алгоритмы
 * https
 * ssl/tls
@@ -339,20 +334,20 @@ The second paragraph text
 * SR
 * content security policy
 
-## Качество кода
+## Качество кода <a name="code_qu"></a>
 * Следование стандартам разработки PEP8.
 * Принципы написания качественного ПО. Про нейминг, про KISS, DRY, yagni про ООП и про Solid, про основные шаблоны проектирования, про чистый код. 
 **Книги**
 [Книга 1](https://www.livelib.ru/book/1001122709-sovershennyj-kod-masterklass-stiv-makkonnell) [Книга 2 ](https://www.livelib.ru/book/1000799728-struktura-i-interpretatsiya-kompyuternyh-programm-harold-abelson) [Книга 3](https://www.livelib.ru/book/1000020456-iskusstvo-programmirovaniya-tom-1-osnovnye-algoritmy-donald-e-knut) [Книга 4](https://www.livelib.ru/book/1000131747-iskusstvo-programmirovaniya-tom-2-poluchislennye-algoritmy-3e-izdanie-donald-e-knut) [Книга 5](https://www.livelib.ru/work/1002361405-priemy-obektnoorientirovannogo-proektirovaniya-patterny-proektirovaniya-erih-gamma-richard-helm-ralf-dzhonson-dzhon-vlissides) [Книга 6](https://www.livelib.ru/book/1000335711-refaktoring-uluchshenie-suschestvuyuschego-koda-dzhejn-roberts) [Книга 7](https://www.livelib.ru/book/1001581900-programmistpragmatik-put-ot-podmasterya-k-masteru-endi-hant) [Книга 8 ](https://www.livelib.ru/book/1000308145-ekstremalnoe-programmirovanie-razrabotka-cherez-testirovanie-kent-bek)
 
-## Паттерны проектирования## 
+## Паттерны проектирования <a name="patterns"></a>
 * SOA
 * CQRS and Event sourcing
 * serverless
 * Монолитный
 * микросервисы
 
-## Брокеры сообщений
+## Брокеры сообщений <a name="message_brokers"></a>
 * kafka
 * rabbitmq
 ***
@@ -360,7 +355,7 @@ The second paragraph text
 ***
 
 
-# Дальнейшее развитие
+# Дальнейшее развитие <a name="adv"></a>
 
 ### FlaskFlask, fastapi, aiohttp.
 [Быстрый вкат](https://proproprogs.ru/flask/flask-chto-eto-takoe-wsgi-prilozhenie)
@@ -377,7 +372,7 @@ The second paragraph text
 * [Университетская ИТ база](https://github.com/jwasham/coding-interview-university)
 * [жс собес](https://habr.com/ru/post/486820/)
 
-# Устройство на работу
+# Устройство на работу <a name="work"></a>
 [Статья на хабре](https://habr.com/ru/post/499394/)
 * Площадки с вакансиями (hh, moikrug, linkedin)
 * Чаты и каналы с вакансиями (telegram js_jobs, etc.)
