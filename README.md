@@ -8,8 +8,7 @@
     4. [Базовая работа в linux](#base_linux)
 3. [Начальные навыки](#begin)
     1. [Python](#python-base)
-    2. [Внешние библиотеки Python которые часто используются](#python-modules)
-    3. [Базы данных](#databases)
+    2. [Базы данных](#databases)
 4. [После прохождения данной части можно пробовать искать работу](#interview)
     1. [APIs](#apis)
     2. [Фреймворк Django](#django)
@@ -145,66 +144,21 @@
 * [1123](https://gitexplorer.com/)
 
 ## Python <a name="python-base"></a>
-Основы языка: [Укус питона](http://wombat.org.ua/AByteOfPython/AByteofPythonRussian-2.02.pdf)
 
-**Книги(пролистать, конспектировать то что покажется нужным)**
-* [Лутц том 1](https://codernet.ru/books/python/izuchaem_python_5-e_izd_tom_1_mark_lutc/ ) углубленные основы, пролистать
-* [Лутц том 2](https://codernet.ru/books/python/izuchaem_python_5-e_izd_tom_2_mark_lutc/)  ооп, пролистать
-* [Справочник](https://codernet.ru/books/python/python_podrobnyj_spravochnik_devid_bizli/) основы и описание стандартных библиотек, пролистать
-* [Книга рецептов](https://codernet.ru/books/python/python_kniga_receptov/)                Пролистать
+Сначала пролистать книгу: [Укус питона](http://wombat.org.ua/AByteOfPython/AByteofPythonRussian-2.02.pdf), объем неочем 164, из которых часть вступление и эпилог.
 
-**Не книги**
-* [Курс яндекса](https://habr.com/ru/company/yandex/blog/498856/)
-* [Ресурс с инфой по питону](https://proproprogs.ru/python )
-* [Лекции препода МФТИ](https://www.youtube.com/c/%D0%A2%D0%B8%D0%BC%D0%BE%D1%84%D0%B5%D0%B9%D0%A5%D0%B8%D1%80%D1%8C%D1%8F%D0%BD%D0%BE%D0%B2/playlists)
+Или сразу перейти к [курсу](https://github.com/DefaultPerson/python_course), в процессе использовать [этот сайт](https://proproprogs.ru/python) и гугл.
 
-**Задачки**
-* [Игра по основам языка](https://py.checkio.org/)
-* [Кодворс](https://www.codewars.com/dashboard)
-[1](https://acmp.ru/index.asp?main=tasks)
+Можно глянуть [этот плейлист](https://www.youtube.com/c/%D0%A2%D0%B8%D0%BC%D0%BE%D1%84%D0%B5%D0%B9%D0%A5%D0%B8%D1%80%D1%8C%D1%8F%D0%BD%D0%BE%D0%B2/playlists)
 
-## Внешние библиотеки <a name="python-modules"></a>
-* Pillow - работа с изображениями
-* Requests -упрощенная работа с интернет протоколами
-* Beautiful soup - одна из популярнейших библиотек для парсинга
-* Simplejson - работа с json
-* SQL Alchemy - работа с SQL
-* telebot или другая библиотека для работы с телеграм ботами.
+Также можно после курса пролистать книжку:[Книга рецептов](https://codernet.ru/books/python/python_kniga_receptov/)   
 
-**Чеклист:**
-* **Basic:**
-* Переменные, условия, связанные условные выражения, операторы, условные операторы, циклы и итерации.
-* Базовые структуры данных, функции, изменяемое против неизменяемого, общие методы, работа с файлами
-* **Intermediate:***
-* Базовое ООП
-* Comprehensions
-* Lambda функция
-* Collections модуль
-* Map, filter,zip
-* *args and **kwargs
-* Углубленное ООП
-* Исключения
-* PIP
-* Environments(окружения)
-* Модули и их создание
-* Async IO(корутины и т.д.)
-* Структуры данных
-* **Advanced:**
-* Декораторы
-* Генераторы и итераторы
-* Менеджеры контекста
-* Метаклассы
-* Конкурентность
-* Параллелизм
-* Тестирование
-* Пакеты
-* основные стандартные библиотеки
-* Регулярные выражения. 
-* Логирование
-* Работа с pickle дампами, с JSON. 
-* Работа с датами(там pytz и тд).
-* Third-party библиотеки. Сюда входит например requests для работы с HTTP запросами. Aiohttp для отправки асинхронных запров и в качестве асинхронного веб-сервера. 
-* Библиотеки для работы с Excel документами, PDF, XML, HTML (там beautiful soup тот же).
+
+Очень опционально(не рекомендую тратить время):[Игра по основам языка](https://py.checkio.org/) [Кодворс](https://www.codewars.com/dashboard) [задачи](https://acmp.ru/index.asp?main=tasks)
+
+
+
+
 
 ## Базы данных. <a name="databases"></a>
 
