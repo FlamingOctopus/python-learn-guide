@@ -269,7 +269,7 @@
 ## О современной разработке и прочее <a name="base_must_learn"></a>
 * масштабирование горизонтальное и вертикальное
 * стратегии миграций
-* agile разработка
+https://habr.com/ru/company/edison/blog/269789/
 * [Структуры данных и вопросы на собесах](https://proglib.io/p/8-data-structures/)
 * [Алгоритмы](https://www.youtube.com/watch?v=S2I0covkyMc&list=PLA0M1Bcd0w8yF0PO0eJ9v8VlsYEowmsnJ)[Книга для ознакомления](https://vk.com/doc2036633_461668315?hash=9e4596e3a4e884a404&dl=75f266060bb1e7060e)
 Особенно языка python 
