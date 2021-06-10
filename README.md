@@ -327,6 +327,7 @@ https://habr.com/ru/company/edison/blog/269789/
 * [жс собес](https://habr.com/ru/post/486820/)
 
 # Устройство на работу <a name="work"></a>
+https://habr.com/ru/company/mailru/blog/350326/
 [Статья на хабре](https://habr.com/ru/post/499394/)
 * Площадки с вакансиями (hh, moikrug, linkedin)
 * Чаты и каналы с вакансиями (telegram js_jobs, etc.)
