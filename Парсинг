@@ -189,3 +189,53 @@ Lynx
 
 Lynx/2.8.8pre.4 libwww-FM/2.14 SSL-MM/1.4.1 GNUTLS/2.12.23
 
+
+
+
+
+
+6. Pursue Different Scraping Patterns
+
+A slow pace isn’t the only feature of human browsing activity. Humans skim websites uniquely. You should also consider different view time, random clicks when users visit a site. However, the bots follow the same browsing pattern. Websites can easily identify scrapers when they find repetitive and similar browsing actions. 
+
+Therefore, you should apply various scraping patterns from time to time when extracting the data from the sites. Some sites may have improved anti-scraping mechanisms.
+
+Consider combining several clicks, mouse movements or shuffle and combine random event activities to make your scraper look like a human.
+
+Some example activities for a LinkedIn bot might include:
+
+    Scrolling the news feed.
+    Taking a break to ‘go to the toilet’.
+    Commenting on someone’s post.
+    Liking on someone’s post.
+    Watching a video.
+
+With the list above, you could create different combinations of activities such as:
+
+    Scrolling Posts –> Break –> Liking Posts.
+
+    Break –> Scrolling Posts –> Break.
+
+To easily create the combinations, you can use a native package in Python. This ensures your web bots are less rule based and less deterministic.
+
+from itertools import permutations 
+  
+# Get all of the permutations of [2, 4, 6] 
+perm_ = permutations([2, 4, 6]) 
+  
+# Print all of the the permutations 
+for i in list(perm_): 
+    print(i) 
+
+# A Python program that prints all
+# combinations of given length 
+from itertools import combinations 
+  
+# Get all combinations of [2, 4, 6] 
+# with a length of length 2 
+comb_ = combinations([2, 4, 6] , 2) 
+  
+# Print all of the combinations 
+for i in list(comb_): 
+    print(i)
+
