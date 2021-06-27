@@ -1,6 +1,195 @@
-Библиотеки
+# Тут собраны примеры работы с различными библиотеками и прочее для себя
 
-## ftplib
+
+1. [Тесты  и логирование](#test)
+2. [Асинхронность и многопоточность и т. д.](#async_n_threads)
+3. [Парсинг](#scrap)
+4. [Библиотеки](#lib)
+    1.
+## Тесты  и логирование <a name="test"></a>
+### unittest(не рекомендуется, нарушает SOLID)
+
+https://docs.python.org/3/library/unittest.html#re-using-old-test-code
+https://ru.hexlet.io/courses/advanced_python/lessons/python_testing_unittest/theory_unit
+https://pythonworld.ru/moduli/modul-unittest.html
+
+### pytest
+
+### logging
+
+https://python-scripts.com/logging-python
+
+
+## Асинхронность и многопоточность и т. д. <a name="async_n_threads"></a>
+multithreading для парса 
+
+В задачах, связанных с процессором, использование multithreading может понизить производительность. 
+
+В задачах, связанных с процессором, использование multiprocessing может повысить производительность.
+
+http://python-3.ru/page/multiprocessing
+
+http://python-3.ru/page/import-threading 
+
+https://python-scripts.com/threading 
+
+https://www.tune-it.ru/web/myaut/home/-/blogs/%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D1%8F-threading-%D0%B2-python https://pythonru.com/uroki/potoki-i-mnogopotochnost-dlja-nachinajushhih
+
+asyncio
+
+https://docs.python.org/3/library/asyncio.html
+
+https://habr.com/ru/post/337420/
+
+
+
+
+
+## Парсинг <a name="scrap"></a>
+
+
+https://developers.google.com/search/docs/advanced/crawling/overview-google-crawlers?hl=en&visit_id=637602093540037819-4103600971&rd=1
+https://yandex.ru/support/webmaster/robot-workings/check-yandex-robots.html
+
+### Генерация юзерагента
+* from user_agent import generate_user_agent
+* headers = {'User-Agent': generate_user_agent(device_type="desktop", os=('mac', 'linux'))}
+* page_response = requests.get(page_link, timeout=5, headers=headers)
+* Опытные скрейперы могут попробовать установить свой агент на Googlebot User Agent — поисковый робот Google. Большинство веб-сайтов, очевидно, хотят попасть в выдачу Google и пропускают Googlebot.
+
+###  Время ожидания запроса
+page_response = requests.get(page_link, timeout=5, headers=headers)
+* Используйте случайные задержки (например около 2–10 секунд), чтобы избежать блокировки. Особо щепетильным стоит проверить файл robots.txt (как правило, находится на http://<адрес сайта>/robots.txt). Иногда там можно найти параметр Crawl-delay, который говорит, сколько секунд нужно подождать между запросами, чтобы не вредить работе сервера.
+###  Отлавливание исключний
+try:
+   page_response = requests.get(page_link, timeout=5)
+   if page_response.status_code == 200:
+   else:
+       print(page_response.status_code)
+except requests.Timeout as e:
+   print("It is time to timeout")
+   print(str(e))
+except # other exception
+
+###  Смена IP
+proxies = {'http' : 'http://10.10.0.0:0000', 
+         'https': 'http://120.10.0.0:0000'}
+page_response = requests.get(page_link, proxies=proxies, timeout=5) 
+
+###  honeypot
+* Ловушки для хакеров — это средства для обнаружения сканеров или скреперов. 
+Такими средствами могут быть «скрытые» ссылки, которые не видны пользователям, но могут быть извлечены скреперами и/или вэб-спайдерами. Такие ссылки будут иметь набор стилей CSS «display: none», «visibility: hidden» или «color: #fff;», их можно смешивать, задачая цвет фона или даже перемещаясь из видимой области страницы. Как только ваша программа посещает такую ссылку, ваш IP-адрес может быть помечен для дальнейшего расследования или даже мгновенно заблокирован.
+* Другой способ обнаружить хакеров — это добавить ссылки с бесконечно глубокими деревьями директорий. В этом случае вам нужно ограничить количество загруженных страниц или ограничить глубину обхода.
+###  Scrapy
+* AutoThrottle - Это расширение для автоматического регулирования скорости обхода на основе нагрузки как сервера Scrapy, так и веб-сайта, на котором выполняется сканирование.
+* scrapy-fake-useragent - Использовать случайный User-Agent, предоставляемый fake-useragent для каждого запроса IP-адреса
+* scrapy-proxies - Настройка промежуточного ПО прокси-сервера Scrapy для каждого запроса
+* https://pythonru.com/biblioteki/sozdanie-parserov-s-pomoshhju-scrapy-i-python
+* https://python-scripts.com/scrapy-example
+* https://pythonru.com/uroki/scrapy-parsing
+
+###  Добавьте referer
+* Referer — заголовок HTTP-запроса, который даёт понять, с какого сайта вы пришли. Неплохой вариант — сделать так, чтобы он показывал, будто вы перешли из Google:
+* Referer: https://www.google.com/
+* Стоит менять referer для веб-сайтов в разных странах: например для России использовать https://www.google.ru/, а не https://www.google.com/. Вместо Google можно подставить адреса соцсетей: Youtube, Facebook, ВКонтакте. Referer поможет сделать так, чтобы запросы выглядели как трафик с того сайта, откуда обычно приходит больше всего посетителей.
+
+###  Используйте headless-браузер(обход отпечатков)
+Он эмулирует поведение настоящего браузера и поддерживает программное управление. Чаще всего для этих целей выбирают Chrome Headless.
+
+###  Подключите программу для решения CAPTCHA
+Существуют веб-сайты, которые систематически просят вас подтвердить, что вы не робот, с помощью капч. Обычно капчи отображаются только для подозрительных IP-адресов, и с этим помогут прокси. В остальных же случаях используйте автоматический решатель CAPTCHA — скажем, 2Captcha или AntiCaptcha.
+
+###  Аунтентификация по куки
+* import 
+* requests session = requests.Session() 
+* params = {'username': 'username', 'password': 'password'} 
+* s=session.post("http://pythonscraping.com/pages/cookies/welcome.php", params) 
+* print("Cookie is set to:") 
+* print(s.cookies.get_dict()) print("-----------") 
+* print("Going to profile page...") 
+* s = session.get("http://pythonscraping.com/pages/cookies/profile.php") 
+* print(s.text) 
+
+
+###  Извлечение текста скрытого за Ajax-стеной: 
+* from selenium import webdriver 
+* import time 
+* driver = webdriver.PhantomJS(executable_path='') 
+* driver.get("http://pythonscraping.com/pages/javascript/ajaxDemo.html") 
+* time.sleep(3) 
+* print(driver.find_element_by_id("content").text) 
+* driver.close() 
+
+###  Простые заголовки
+* import requests from bs4 import BeautifulSoup 
+* session = requests.Session() 
+* headers = {"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_5) AppleWebKit 537.36 (KHTML, like Gecko) Chrome", "Accept":"text/html,application/xhtml+xml,application/xml; q=0.9,image/webp,*/*;q=0.8"} 
+* url = "https://www.whatismybrowser.com/developers/what-http-headers-is-my-browser-sending" 
+* req = session.get(url, headers=headers) 
+* bsObj = BeautifulSoup(req.text) 
+* print(bsObj.find("table",{"class":"table-striped"}).get_text)
+
+###  Selenium 
+* подменга веб драйвера
+
+* граббер тг
+* https://github.com/andreyru02/telegram-grabber
+* парсинг карт
+* https://www.youtube.com/watch?v=DJysDXJLpM8
+* чекер
+* https://zismo.biz/topic/943273-kak-napisat-cheker-na-python-3-urovnia/
+
+6. Pursue Different Scraping Patterns
+
+A slow pace isn’t the only feature of human browsing activity. Humans skim websites uniquely. You should also consider different view time, random clicks when users visit a site. However, the bots follow the same browsing pattern. Websites can easily identify scrapers when they find repetitive and similar browsing actions. 
+
+Therefore, you should apply various scraping patterns from time to time when extracting the data from the sites. Some sites may have improved anti-scraping mechanisms.
+
+Consider combining several clicks, mouse movements or shuffle and combine random event activities to make your scraper look like a human.
+
+Some example activities for a LinkedIn bot might include:
+
+    Scrolling the news feed.
+    Taking a break to ‘go to the toilet’.
+    Commenting on someone’s post.
+    Liking on someone’s post.
+    Watching a video.
+
+With the list above, you could create different combinations of activities such as:
+
+    Scrolling Posts –> Break –> Liking Posts.
+
+    Break –> Scrolling Posts –> Break.
+
+To easily create the combinations, you can use a native package in Python. This ensures your web bots are less rule based and less deterministic.
+
+from itertools import permutations 
+  
+Get all of the permutations of [2, 4, 6] 
+perm_ = permutations([2, 4, 6]) 
+  
+Print all of the the permutations 
+for i in list(perm_): 
+    print(i) 
+
+A Python program that prints all
+combinations of given length 
+from itertools import combinations 
+  
+Get all combinations of [2, 4, 6] 
+with a length of length 2 
+comb_ = combinations([2, 4, 6] , 2) 
+  
+Print all of the combinations 
+for i in list(comb_): 
+    print(i)
+
+
+
+
+## Библиотеки <a name="lib"></a>
+
+###  ftplib
 * import ftplib
 * host = "ftp.ex.ru"
 * ftp_user = "root"
@@ -14,7 +203,7 @@
 * **Закрываем FTP соединение**
 * con.close
 
-## json
+###  json
 
 * **Из json**
 * import json
@@ -34,17 +223,7 @@
 * print(json.dumps(y, ensure_ascii=False))
 * json.dumps(x, indent=4) 
 
-
-
-
-
-import webbrowser
-webbrowser.open("https://codecamp.ru")
-
-
-
-
-Время
+### Время
 
 pytz-для таймзон
 
@@ -54,15 +233,6 @@ print(d.year) # 2017
 print(d.second) # 10
 print(d.hour) # 12
 
-
-
-
-2
-3
-4
-5
-6
-7
 import datetime
  
 a = datetime.datetime.today()
@@ -71,17 +241,6 @@ print(a) # datetime.datetime(2017, 4, 5, 0, 16, 54, 989663)
 b = datetime.datetime.now()
 print(b) # datetime.datetime(2017, 4, 5, 0, 17, 8, 24239)
 
-
-
-
-2
-3
-4
-5
-6
-7
-8
-9
 import datetime
  
 a = datetime.datetime.today().strftime("%Y%m%d")
@@ -92,35 +251,18 @@ print( today.strftime("%m/%d/%Y") ) # '04/05/2017'
  
 print( today.strftime("%Y-%m-%d-%H.%M.%S") ) # 2017-04-05-00.18.00
 
-
-
-
-
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
 import datetime
  
-# Значение: datetime.datetime(2017, 4, 5, 0, 18, 51, 980187)
+Значение: datetime.datetime(2017, 4, 5, 0, 18, 51, 980187)
 now = datetime.datetime.now()
  
 then = datetime.datetime(2017, 2, 26)
  
-# Кол-во времени между датами.
+Кол-во времени между датами.
 delta = now - then
  
 print(delta.days) # 38
 print(delta.seconds) # 1131
-
-
 
 time
 
@@ -129,13 +271,6 @@ print(time.ctime()) # 'Wed Apr 5 00:02:49 2017'
  
 print(time.ctime(1384112639)) # 'Sun Nov 10 13:43:59 2013'
 
-
-
-1
-2
-3
-4
-5
 import time
  
 for x in range(5):
@@ -143,30 +278,16 @@ for x in range(5):
     print("Slept for 2 seconds")
 
 
-
-
-
-2
-3
-4
 import time
  
 a = time.strftime("%Y-%m-%d-%H.%M.%S", time.localtime())
 print(a) # '2017-04-05-00.11.20'
-
-
-
 
 import time
  
 x = time.time()
 print(x) # 1491340367.478385
 
-
-
-
-3
-4
 import time
  
 a = time.ctime(time.time())
@@ -176,7 +297,7 @@ print(a) # Wed Apr 5 00:13:47 2017
 
 
 
-hash
+### hash
 hashlib
 Для шифрования строк предназначен модуль hashlib. Прежде чем использовать функции из этого модуля, необходимо подключить модуль с помощью инструкции:
 1
@@ -254,7 +375,7 @@ decoded_data = base64.b64decode("RW5jb2RlIHRoaXMgdGV4dA==")
 print("decoded text is ")
 print(decoded_data)
 
-jinja
+### jinja
 
 tpl = "Автомобиль: {{ (cs | max(attribute='price')).model  }}"
 
@@ -344,7 +465,7 @@ include and import
 {% include 'footer.htm' %}
 
 
-наследование
+####  наследование
 
 <!DOCTYPE html>
 <html>
@@ -399,7 +520,7 @@ print(output)
 {% endblock %}
 
 
-вложенные блоки
+#### вложенные блоки
 
 {% block content %}
      	{% block table_contents %}
@@ -418,7 +539,7 @@ print(output)
 <p>Классный сайт, если его доделать.</p>
 {% endblock %}
 
-Область видимости блоков
+#### Область видимости блоков
 
 Давайте теперь, немного усовершенствуем базовый шаблон и добавим еще один блок для формирования элементов списка:
 {% for li in list_table -%}
@@ -429,14 +550,14 @@ print(output)
 Теперь при запуске программа будет работать также, как и ранее. Но мы же добавили этот блок item не просто так, значит, собираемся его переопределять в дочернем шаблоне. И это можно сделать следующим образом:
 {% block item %}<p class="item">{{ super() }}</p>{% endblock %}
 
-Вложенное наследование шаблонов
+#### Вложенное наследование шаблонов
 
 файл base.tpl – такой же как и ex_main.htm:
 файл child1.htm: {% extends 'base.tpl' %} …
 файл child2.htm: {% extends 'child1.htm' %} …
 
 
-прогресс выполнения в Python
+### прогресс выполнения в Python
 import time
 from progress.bar import IncrementalBar
 
@@ -470,8 +591,8 @@ with alive_bar(len(mylist)) as bar:
         time.sleep(1)
 
 
-Сервер
-wsgi
+### Сервер
+#### wsgi
 
 socket
 сервер
@@ -508,172 +629,70 @@ print data
 
 сокет с передачей картинки
 ![](https://imgur.com/a/T6XnanG)
-курс крипты
+
+#### курс крипты
 
 import websockets
 
-
-
-
 import asyncio
-
 
 import json
 
-
 import time
-
 
 import matplotlib.pyplot as plt
 
-
-
-
-
-
-
-
-
-
-
-
 fig = plt.figure()
-
 
 ax = fig.add_subplot(111)
 
-
 fig.show()
-
-
-
-
-
-
 
 xdata = []
 
-
 ydata = []
-
-
-
-
-
-
-
-
-
-
-
 
 def update_graph():
 
-
    ax.plot(xdata, ydata, color='g')
-
 
    ax.legend([f"Last price: {ydata[-1]}$"])
 
-
-
-
-
-
-
    fig.canvas.draw()
-
 
    plt.pause(0.1)
 
-
-
-
-
-
-
-
-
-
-
-
 async def main():
-
 
    url = "wss://stream.binance.com:9443/stream?streams=btcusdt@miniTicker"
 
-
    async with websockets.connect(url) as client:
-
 
        while True:
 
-
            data = json.loads(await client.recv())['data']
-
-
-
-
-
-
 
            event_time = time.localtime(data['E'] // 1000)
 
-
            event_time = f"{event_time.tm_hour}:{event_time.tm_min}:{event_time.tm_sec}"
-
-
-
-
-
-
 
            print(event_time, data['c'])
 
-
-
-
-
-
-
            xdata.append(event_time)
-
 
            ydata.append(int(float(data['c'])))
 
-
-
-
-
-
-
            update_graph()
-
-
-
-
-
-
-
-
-
-
-
 
 if __name__ == '__main__':
 
-
    loop = asyncio.get_event_loop()
-
 
    loop.run_until_complete(main())
 
 
-
-
-
-
-Работа с файлами 
+### Работа с файлами 
+#### csv
 import csv
  
 with open('example.csv', newline='') as File: 
@@ -716,7 +735,7 @@ with myFile:
      
 print("Writing complete")
 
-xml
+#### xml
 парсинг
 from lxml import etree
  
@@ -898,7 +917,7 @@ obj_xml = etree.tostring(
 
 
 
-pillow
+#### pillow
 https://www.youtube.com/watch?v=d7D2UuUqtgs&list=PLEYdORdflM3k2U6xicasFS3NXWwaZo8kw
 
 from PIL import ImageOps
@@ -907,13 +926,13 @@ image = ImageOps.exif_transpose(image)
 
 
 
-pdf
+#### pdf
  
 https://python-scripts.com/create-pdf-pyfpdf
 excel
 https://www.youtube.com/watch?v=VQNV_oOdOqo
 https://www.youtube.com/watch?v=d5jHpPSp5uI&t=4s
-pickle
+#### pickle
 >>> import pickle
 >>> data = {
 ...    'a': [1, 2.0, 3, 4+6j],
@@ -991,10 +1010,28 @@ os.path.supports_unicode_filenames - поддерживает ли файлов�
 
 
 
-аргументы командной строки
+### аргументы командной строки
 https://foxford.ru/wiki/informatika/analiz-argumentov-komandnoy-stroki-v-python
 
 
+### Цикл разработки сайта
+
 ![](https://imgur.com/a/BL6eRl3)
 
-
+1. Дизайн
+* figma-блочная верстка(прототип сайта)
+* Обсуждение с заказчиком
+1. Верстка
+* Верстка с использованием технологий напр. gulp+sass+js
+* Адаптивность
+* Обсуждение с заказчиком
+1. Посадка на cms
+* Логика - добавление услуг, галерея, заявки и т.д.
+* Обсуждение с заказчиком
+1. Домен
+* ssl
+* Залив
+* Почта
+* Доступ
+* Метрика, google search console, вебмастер, sitemap, robots.txt, pagespeed,вту, лайтхаус.
+![](https://i.imgur.com/8fu9wn0.jpg)
