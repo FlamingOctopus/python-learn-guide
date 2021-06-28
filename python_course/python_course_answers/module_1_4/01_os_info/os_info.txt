@@ -1,0 +1,5 @@
+OS info is 
+uname_result(system='Linux', node='archlinux', release='5.11.10-arch1-1', version='#1 SMP PREEMPT Fri, 26 Mar 2021 00:11:29 +0000', machine='x86_64')
+
+Python version is 3.9.2 (default, Feb 20 2021, 18:40:11) 
+[GCC 10.2.0] ('64bit', 'ELF')
