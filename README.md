@@ -147,7 +147,7 @@
 
 Сначала пролистать книгу: [Укус питона](http://wombat.org.ua/AByteOfPython/AByteofPythonRussian-2.02.pdf), объем неочем 164, из которых часть вступление и эпилог.
 
-Или сразу перейти к [курсу](https://github.com/DefaultPerson/python_course), в процессе использовать [этот сайт](https://proproprogs.ru/python) и гугл.
+**сделать тут что-нибудь**, в процессе использовать [этот сайт](https://proproprogs.ru/python) и гугл.
 
 Можно глянуть [этот плейлист](https://www.youtube.com/c/%D0%A2%D0%B8%D0%BC%D0%BE%D1%84%D0%B5%D0%B9%D0%A5%D0%B8%D1%80%D1%8C%D1%8F%D0%BD%D0%BE%D0%B2/playlists)
 
