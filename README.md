@@ -113,7 +113,7 @@
 #### Linux <a name="base_linux"></a>
 Что нужно знать:
 * Простые терминальные команды
-* Терминальные утилиты Linux, необходимые в разработке grep, curl,se,lsof,awk,wget,tail,head,less,find,ssh,kill,rip,htop [Моя шпаргалка](https://github.com/DefaultPerson/Linux_misc/tree/main/console_utils)
+* Терминальные утилиты Linux, необходимые в разработке grep, curl,lsof,awk,wget,tail,head,less,find,ssh,kill,htop [Моя шпаргалка](https://github.com/DefaultPerson/Linux_misc/tree/main/console_utils)
 * управление процессами
 * io управление
 * управлению памятью
