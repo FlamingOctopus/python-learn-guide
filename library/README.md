@@ -118,7 +118,7 @@ https://yandex.ru/support/webmaster/robot-workings/check-yandex-robots.html)
 * чекер
 * https://zismo.biz/topic/943273-kak-napisat-cheker-na-python-3-urovnia/
 * https://en.wikipedia.org/wiki/List_of_HTTP_header_fields
-
+* https://hussainaliakbar.github.io/restricting-tls-version-and-cipher-suites-in-python-requests-and-testing-with-wireshark/
 ### Применяйте разные паттерны
 Применяйте разные паттерны парсинга для имитации живого человека, например разное время кликов, просмотров, лайков и т. д.
 
