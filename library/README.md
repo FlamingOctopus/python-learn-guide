@@ -36,6 +36,50 @@ https://pythonworld.ru/moduli/modul-unittest.html
 https://python-scripts.com/logging-python
 
 
+### sqlalchemy
+
+>>> ins = users.insert().values(name='jack', fullname='Jack Jones')
+
+
+Вывод из бд
+from sqlalchemy import create_engine
+from sqlalchemy.sql import select
+from models import Users
+engine = create_engine('sqlite:///tg.db', echo=True)
+conn = engine.connect()
+s = select(Users)
+result = conn.execute(s)
+for i in result():
+    print(i)
+for id, name, fullname in result:
+...     print("name:", name, "; fullname: ", fullname)
+for row in result:
+...     print("name:", row.name, "; fullname: ", row.fullname)
+>>> result = conn.execute(s)
+>>> row = result.fetchone()
+>>> print("name:", row._mapping['name'], "; fullname:", row._mapping['fullname'])
+row = result.fetchone()
+name, fullname = row["name"], row["fullname"]
+>>> row = result.fetchone()
+>>> print("name:", row[1], "; fullname:", row[2])
+for row in conn.execute(s):
+...     print("name:", row._mapping[users.c.name], "; fullname:", row._mapping[users.c.fullname])
+result.close()
+
+
+from sqlalchemy.orm import sessionmaker
+session = sessionmaker(bind=engine)
+session().query(Users).filter(Users.id == 1).one().id
+emmployee = session().query(Users).all()
+
+.count()
+exists()
+
+one()-возвращает объяект если есть, если нет исключение .scalar() - возвращает объект или ноне если нет, если несколько исключение
+
+    is_exists = session.query(exists().where(Department.name == department_name)).scalar()
+
+
 ## Асинхронность и многопоточность и т. д. <a name="async_n_threads"></a>
 multithreading для парса 
 
