@@ -79,6 +79,73 @@ one()-возвращает объяект если есть, если нет и�
 
     is_exists = session.query(exists().where(Department.name == department_name)).scalar()
 
+Основные степени "ленивости":
+
+
+select — по умолчанию. ORM делает запрос только тогда, когда обращаются к данным. Осуществляется отдельным запросом.
+dynamic — позволяет получить объект запроса, который можно модифицировать по желанию. Получает данные из БД только после вызова all() или one() или любых других доступных методов.
+joined — в основной запрос добавляется с помощью LEFT JOIN. Выполняется сразу.
+subquery — похож на select, но выполняется как подзапрос.
+
+По умолчанию — select.
+
+def get_employee_with_skills(session: DBSession, eid: int):
+    employee = session.query(EmployeeWithSkills).filter(EmployeeWithSkills.id == eid).one()
+    
+class EmployeeWithDepartments(Employee):
+    departments = relation(
+        Department,
+        # primaryjoin=EmployeeDepartments.employee_id == Employee.id,
+        secondary=EmployeeDepartments.__tablename__,
+        # secondaryjoin=EmployeeDepartments.department_id == Department.id,
+    )
+
+Созданный класс не является новой таблицей БД. Это все та же таблица Employee, только расширенная c помощью relation. Таким образом, вы можете обращаться к таблице Employee или EmployeeWithDepartments в запросах. Разница будет лишь в отсутствии/наличии relation.
+
+Первый аргумент указывает к какой таблице мы будем создавать relation.
+primaryjoin — это условие, по которому будет подключаться вторая таблица до её присоединения к объекту.
+secondary — имя таблицы, содержащее foreign_keys для сопоставления. Используется в случае many-to-many.
+secondaryjoin — условия сопоставления промежуточной таблицы с последней.
+primaryjoin и secondaryjoin служат для явного указания соответствий в сложных ситуациях.
+
+def has_in_relations(session: DBSession, reason: str):
+    employees = session.query(EmployeeWithCadreMovements).filter(EmployeeWithCadreMovements.cadre_movements.any(CadreMovement.reason == reason)).all()
+    return employees
+
+output:
+    [Steve Rogers, Tony Stark]
+last_cadre_movement = relation(
+    CadreMovement,
+    primaryjoin=and_(
+        CadreMovement.employee == Employee.id,
+        uselist=False,
+        CadreMovement.id == select([func.max(CadreMovement.id)]).where(CadreMovement.employee == Employee.id)
+    )
+)
+
+  def __init__(self, full_name: list[str], age: int, address: str, id_group: int):
+        self.surname = full_name[0]
+        self.name = full_name[1]
+        self.patronymic = full_name[2]
+        self.age = age
+        self.address = address
+        self.group = id_group
+
+    def __repr__(self):
+        info: str = f'Студент [ФИО: {self.surname} {self.name} {self.patronymic}, ' \
+            f'Возраст: {self.age}, Адрес: {self.address}, ID группы: {self.group}]'
+        return info
+        
+         student = session.query(Student).get(20)
+        print(student)
+        # student.age = 16
+        session.query(Student).update({Student.age: Student.age + 1})
+        print(student)
+        session.query(Student).filter(Student.age <= 18).update({Student.age: Student.age + 1})
+.delete()
+session.rollback()
+session.close()
+
 
 ## Асинхронность и многопоточность и т. д. <a name="async_n_threads"></a>
 multithreading для парса 
