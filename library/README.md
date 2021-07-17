@@ -2,10 +2,11 @@
 
 
 1. [Тесты  и логирование](#test)
-1. [Асинхронность](#Aiogram)
-1. [Асинхронность](#Alembic)
+1. [Aiogram](#Aiogram)
+1. [Alembic](#Alembic)
 1. [Асинхронность](#async)
 1. [Sqlalchemy](#sqlalchemy)
+   [Sqlalchemy](#Отправить в бд)
 3. [Парсинг](#scrap)
 4. [Библиотеки](#lib)
     1. [ftplib](#ftplib)
@@ -39,9 +40,9 @@ https://pythonworld.ru/moduli/modul-unittest.html
 https://python-scripts.com/logging-python
 
 
-### Aiogram<a name="Aiogram"></a>
+## Aiogram<a name="Aiogram"></a>
 
-### Alembic<a name="Alembic"></a>
+## Alembic<a name="Alembic"></a>
 
 ## Асинхронность <a name="async"></a>
 
@@ -53,15 +54,15 @@ https://habr.com/ru/post/337420/
 
 
 
-### sqlalchemy <a name="sqlalchemy"></a>
+## SQLALCHEMY <a name="sqlalchemy"></a>
 [Внизу настройки для разных бд](https://coderlessons.com/tutorials/bazy-dannykh/sqlalchemy/sqlalchemy-kratkoe-rukovodstvo)
 
 [Отношения в таблице](https://docs.sqlalchemy.org/en/14/orm/basic_relationships.html)
 
-Есть 3 подхода декл не декл и связывания
+В SQLALCHEMY есть три подхода декларативный, классический и связывания(mapping)
 
-#### Запросы к бд
-##### Отправить в бд
+[Sqlalchemy](#Отправить в бд)
+### Отправить в бд <a name="Отправить в бд"></a>
 ```python
 ins = users.insert().values(name='jack', fullname='Jack Jones')
 
@@ -75,9 +76,10 @@ conn.execute(address_table.insert(),
               {"user_id": 3,
                "email_address": "wendy@gmail.com"}, ])
 ```
-##### Типы данных для таблиц
+### Типы данных для таблиц <a name="Типы данных для таблиц"></a>
 ![](img.png)
-##### Пример отправки транзакциями
+### Пример отправки транзакциями <a name="Пример отправки транзакциями"></a>
+```python
 author_one = Author(name="НеЛутц") 
 s.add(author_one) 
 s.commit()
@@ -90,8 +92,8 @@ s.add_all([Book(title="Чистый Чистый Python", author_id=1, genre="к
            Book(title="Python как Питон", author_id=1, genre="компьютерная литература", price=2976)  
            ])
 s.commit()
-
-##### Вывод из бд
+```
+### Вывод из бд <a name="Вывод из бд"></a>
 ```python
 from sqlalchemy import create_engine
 from sqlalchemy.sql import select
@@ -119,7 +121,7 @@ for row in conn.execute(s):
 result.close()
 ```
     
-##### Вывод из бд одного экземпляра
+### Вывод из бд одного экземпляра <a name="Вывод из бд одного экземпляра"></a>
 ```python
 from sqlalchemy.orm import sessionmaker
 session = sessionmaker(bind=engine)
@@ -130,7 +132,7 @@ is_exists = session.query(exists().where(Department.name == department_name)).sc
 ```
 
 
-##### Транзакции
+### Транзакции <a name="Транзакции"></a>
 ```python
 sqlalchemy.engine.Engine.execute() # автоматически подтверждает транзакцию в текущем соединении (выполняет COMMIT)
 engine.execute("insert into employee_of_month (emp_name) values (:emp_name)", emp_name='fred')
@@ -176,7 +178,7 @@ def dispatch_order(order_id):
         print("Транзакция не удалась.")
 dispatch_order(1)
 ```
-##### Работа с запросами ForeignKey
+### Работа с запросами ForeignKey <a name="Работа с запросами ForeignKey "></a>
 ```python
 # Используем join(), чтобы найти всех покупателей, у которых как минимум один заказ.
 session.query(Customer).join(Order).all()session.query(Customer.id, Customer.username, Order.id).join(Order).all()
@@ -253,7 +255,7 @@ session.delete(x)
 session.query(Customer).filter_by(name = 'Gopal Krishna').count()
 session.query(Invoice).filter(Invoice.invno.in_([10,14])).count()
 ```
-##### Методы
+### Методы <a name="Методы"></a>
 ```python
 all()	# Возвращает общее количество записей в запросе.
 first()	# Возвращает первый результат из запроса или None, если записей нет.
@@ -305,14 +307,14 @@ u = intersect(addresses.select().where(addresses.c.email_add.like('%@gmail.com')
 # Одна возвращает строки, содержащие «gmail.com», как часть столбца email_add, а другая возвращает строки, содержащие «Pune» как часть столбца postal_add. Результатом будут общие строки из обоих наборов результатов.
 
 ```
-##### Основные степени "ленивости"
+### Основные степени "ленивости" <a name="Основные степени"></a>
 * select — по умолчанию. ORM делает запрос только тогда, когда обращаются к данным. Осуществляется отдельным запросом.
 * dynamic — позволяет получить объект запроса, который можно модифицировать по желанию. Получает данные из БД только после вызова all() или one() или любых других доступных методов.
 * joined — в основной запрос добавляется с помощью LEFT JOIN. Выполняется сразу.
 * subquery — похож на select, но выполняется как подзапрос.
 * По умолчанию — select.
 
-##### Удаление и обновление
+### Удаление и обновление <a name="Удаление и обновление"></a>
 ```python
 i = session.query(Item).get(8)
 i.selling_price = 25.91
@@ -331,7 +333,7 @@ session.query(Item).filter(
 ).delete(synchronize_session='fetch')
 session.commit()
 ```
-##### Пример отношения 1 ко многим
+### Пример отношения 1 ко многим <a name="Пример отношения 1 ко многим"></a>
 ```python
 class Book(Base):  
     __tablename__ = 'Books'  
@@ -352,7 +354,7 @@ class Author(Base):
 
 Base.metadata.create_all(engine)
 ```
-##### Пример инициализации базы
+### Пример инициализации базы <a name="Пример инициализации базы"></a>
 ```python
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -366,7 +368,7 @@ author_one = Author(name="Лутц")
 s.add(author_one) 
 s.commit()
 ```
-##### Примеры разных запросов
+### Примеры разных запросов <a name="Примеры разных запросов"></a>
 ```python
 s.query(Book).first().title
 for title, price in s.query(Book.title, Book.price).order_by(Book.title).limit(2):
@@ -452,7 +454,7 @@ session.commit()
 
 
 ```
-##### Пример запросов без связывания с классами 
+### Пример запросов без связывания с классами <a name="Пример запросов без связывания с классами"></a>
 ```python
 from sqlalchemy import create_engine, Table, MetaData
 from sqlalchemy.sql import select, and_
@@ -476,7 +478,7 @@ conn.execute(delete_query)
 update_query=books.update().where(books.c.id_book==2).values(title='AnotherTitle') # UPDATE books SET title= al where books.id_book=3;
 conn.execute(update_query)
 ```
-##### Пример со связываниями с классами 
+### Пример со связываниями с классами <a name="Пример со связываниями с классами"></a>
 ```python
 from sqlalchemy.orm import mapper, relationship, sessionmaker
 
@@ -508,7 +510,7 @@ mapper(Book, books)
 mapper(Author, authors)
 new_book = Book("NewBook", 1, "NewG", 2500)
 ```
-##### Пример работы с классической орм
+### Пример работы с классической орм <a name="Пример работы с классической орм"></a>
 ```python
 from sqlalchemy import create_engine, select, Table, Column, Integer,   String, MetaData, ForeignKey
 # Метаданные-это информация о данных в БД; например, информация о таблицах и столбцах, в которых мы храним данные.
@@ -565,7 +567,7 @@ for row in result:
 
 ```
 
-##### Пример запросов на классической версии
+### Пример запросов на классической версии <a name="Пример запросов на классической версии"></a>
 ```python
 fetchone()
 select()
@@ -660,7 +662,7 @@ print (result.fetchone())
 result = conn.execute(select([func.max(students.c.lastname).label('Name')]))
 print (result.fetchone())
 ```
-##### Многие ко многим
+### Многие ко многим <a name="Многие ко многим"></a>
 ```python
 from sqlalchemy import create_engine, ForeignKey, Column, Integer, String
 engine = create_engine('sqlite:///mycollege.db', echo = True)
