@@ -160,6 +160,104 @@ ins = students.insert().values(name = 'Ravi', lastname = 'Kapoor')
 conn = engine.connect()
 result = conn.execute(ins)
 
+row = result.fetchone()
+
+
+s = students.select()
+conn = engine.connect()
+result = conn.execute(s)
+for row in result:
+   print (row)
+
+s = students.select().where(students.c.id>2)
+result = conn.execute(s)
+for row in result:
+   print (row)
+
+from sqlalchemy.sql import select
+s = select([users])
+result = conn.execute(s)
+
+from sqlalchemy import text
+t = text("SELECT * FROM students")
+result = connection.execute(t)
+
+from sqlalchemy import and_
+from sqlalchemy.sql import select
+s = select([text("* from students")]) \
+.where(
+   and_(
+      text("students.name between 😡 and :y"),
+      text("students.id>2")
+   )
+)
+conn.execute(s, x = 'A', y = 'L').fetchall()
+
+
+conn = engine.connect()
+stmt=students.update().where(students.c.lastname=='Khanna').values(lastname='Kapoor')
+conn.execute(stmt)
+s = students.select()
+conn.execute(s).fetchall()
+
+conn = engine.connect()
+stmt = students.delete().where(students.c.lastname == 'Khanna')
+conn.execute(stmt)
+s = students.select()
+conn.execute(s).fetchall()
+
+from sqlalchemy.sql import select
+s = select([students, addresses]).where(students.c.id == addresses.c.st_id)
+result = conn.execute(s)
+for row in result:
+   print (row)
+
+stmt = students.update().\
+values({
+   students.c.name:'xyz',
+   addresses.c.email_add:'abc@xyz.com'
+}).\
+where(students.c.id == addresses.c.id)
+
+stmt = table1.update(preserve_parameter_order = True).\
+   values([(table1.c.y, 20), (table1.c.x, table1.c.y + 10)])
+   
+ stmt = users.delete().\
+   where(users.c.id == addresses.c.id).\
+   where(addresses.c.email_address.startswith('xyz%'))
+conn.execute(stmt)
+
+from sqlalchemy import join
+from sqlalchemy.sql import select
+j = students.join(addresses, students.c.id == addresses.c.st_id)
+stmt = select([students]).select_from(j)
+result = conn.execute(stmt)
+result.fetchall()
+
+from sqlalchemy import and_, or_
+stmt = select([students]).where(and_(students.c.name == 'Ravi', students.c.id <3))
+result = conn.execute(stmt)
+print (result.fetchall())
+
+stmt = select([students]).where(or_(students.c.name == 'Ravi', students.c.id <3))
+
+from sqlalchemy import asc
+stmt = select([students]).order_by(asc(students.c.name))
+result = conn.execute(stmt)
+for row in result:
+   print (row)
+
+
+from sqlalchemy import desc
+stmt = select([students]).order_by(desc(students.c.lastname))
+
+from sqlalchemy import between
+stmt = select([students]).where(between(students.c.id,2,4))
+print (stmt)
+
+
+
+
 
 
 
