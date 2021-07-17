@@ -273,7 +273,7 @@ result = conn.execute(u)
 result.fetchall()Функция union () возвращает объект CompoundSelect из нескольких таблиц. Следующий пример демонстрирует его использование
 
 u = union_all(addresses.select().where(addresses.c.email_add.like('%@gmail.com')), addresses.select().where(addresses.c.email_add.like('%@yahoo.com')))
-
+По умолчанию union() удаляет все повторяющиеся записи из результата. Для их сохранения используйте union_all().
 u = except_(addresses.select().where(addresses.c.email_add.like('%@gmail.com')), addresses.select().where(addresses.c.postal_add.like('%Pune')))возвращает только те записи из таблицы адресов, которые имеют «gmail.com» в поле email_add, но исключают те, которые имеют «Pune» как часть поля postal_add.
 
 u = intersect(addresses.select().where(addresses.c.email_add.like('%@gmail.com')), addresses.select().where(addresses.c.postal_add.like('%Pune')))Одна возвращает строки, содержащие «gmail.com», как часть столбца email_add, а другая возвращает строки, содержащие «Pune» как часть столбца postal_add. Результатом будут общие строки из обоих наборов результатов.
@@ -300,6 +300,148 @@ session = Session()
 result = session.query(Customers).all()
 for row in result:
    print ("Name: ",row.name, "Address:",row.address, "Email:",row.email)
+
+
+
+
+c1 = Customer(name = "Gopal Krishna", address = "Bank Street Hydarebad", email = "gk@gmail.com")
+c1.invoices = [Invoice(invno = 10, amount = 15000), Invoice(invno = 14, amount = 3850)]
+from sqlalchemy.orm import sessionmaker
+Session = sessionmaker(bind = engine)
+session = Session()
+session.add(c1)
+session.commit()
+
+
+rows = [
+   Customer(
+      name = "Govind Kala", 
+      address = "Gulmandi Aurangabad", 
+      email = "kala@gmail.com", 
+      invoices = [Invoice(invno = 7, amount = 12000), Invoice(invno = 8, amount = 18500)]),
+
+   Customer(
+      name = "Abdul Rahman", 
+      address = "Rohtak", 
+      email = "abdulr@gmail.com",
+      invoices = [Invoice(invno = 9, amount = 15000), 
+      Invoice(invno = 11, amount = 6000)
+   ])
+]
+session.add_all(rows)
+session.commit()
+
+
+from sqlalchemy.orm import sessionmaker
+Session = sessionmaker(bind = engine)
+session = Session()
+for c, i in session.query(Customer, Invoice).filter(Customer.id == Invoice.custid).all():
+   print ("ID: {} Name: {} Invoice No: {} Amount: {}".format(c.id,c.name, i.invno, i.amount))
+
+
+
+session.query(Customer).join(Invoice).filter(Invoice.amount == 8500).all()
+
+
+result = session.query(Customer).join(Invoice).filter(Invoice.amount == 8500)
+for row in result:
+   for inv in row.invoices:
+      print (row.id, row.name, inv.invno, inv.amount)
+
+
+query.join (Счет, id == Address.custid)	явное условие
+query.join (Customer.invoices)	указать отношения слева направо
+query.join (Invoice, Customer.invoices)	то же самое, с явной целью
+query.join ( ‘счета’)	то же самое, используя строку
+
+
+s = session.query(Customer).filter(Invoice.invno.__eq__(12))
+s = session.query(Customer).filter(Invoice.custid.__ne__(2))
+s = session.query(Invoice).filter(Invoice.invno.contains([3,4,5]))
+s = session.query(Customer).filter(Customer.invoices.any(Invoice.invno==11))
+s = session.query(Invoice).filter(Invoice.customer.has(name = 'Arjun Pandit'))
+
+
+from sqlalchemy.orm import subqueryload
+c1 = session.query(Customer).options(subqueryload(Customer.invoices)).filter_by(name = 'Govind Pant').one()
+print (c1.name, c1.address, c1.email)
+for x in c1.invoices:
+   print ("Invoice no : {}, Amount : {}".format(x.invno, x.amount))
+Govind Pant Gulmandi Aurangabad gpant@gmail.com
+Invoice no : 3, Amount : 10000
+Invoice no : 4, Amount : 5000
+
+
+from sqlalchemy.orm import sessionmaker
+Session = sessionmaker(bind = engine)
+session = Session()
+x = session.query(Customer).get(2)
+session.delete(x)
+session.query(Customer).filter_by(name = 'Gopal Krishna').count()
+session.query(Invoice).filter(Invoice.invno.in_([10,14])).count()
+
+Многие ко многим
+
+from sqlalchemy import create_engine, ForeignKey, Column, Integer, String
+engine = create_engine('sqlite:///mycollege.db', echo = True)
+from sqlalchemy.ext.declarative import declarative_base
+Base = declarative_base()
+from sqlalchemy.orm import relationship
+class Department(Base):
+   __tablename__ = 'department'
+   id = Column(Integer, primary_key = True)
+   name = Column(String)
+   employees = relationship('Employee', secondary = 'link')
+   
+class Employee(Base):
+   __tablename__ = 'employee'
+   id = Column(Integer, primary_key = True)
+   name = Column(String)
+   departments = relationship(Department,secondary='link')
+
+class Link(Base):
+   __tablename__ = 'link'
+   department_id = Column(
+      Integer, 
+      ForeignKey('department.id'), 
+      primary_key = True)
+
+employee_id = Column(
+   Integer, 
+   ForeignKey('employee.id'), 
+   primary_key = True)
+
+Base.metadata.create_all(engine)
+d1 = Department(name = "Accounts")
+d2 = Department(name = "Sales")
+d3 = Department(name = "Marketing")
+
+e1 = Employee(name = "John")
+e2 = Employee(name = "Tony")
+e3 = Employee(name = "Graham")
+e1.departments.append(d1)
+e2.departments.append(d3)
+d1.employees.append(e3)
+d2.employees.append(e2)
+d3.employees.append(e1)
+e3.departments.append(d2)
+from sqlalchemy.orm import sessionmaker
+Session = sessionmaker(bind = engine)
+session = Session()
+session.add(e1)
+session.add(e2)
+session.add(d1)
+session.add(d2)
+session.add(d3)
+session.add(e3)
+session.commit()
+from sqlalchemy.orm import sessionmaker
+Session = sessionmaker(bind = engine)
+session = Session()
+
+for x in session.query( Department, Employee).filter(Link.department_id == Department.id, 
+   Link.employee_id == Employee.id).order_by(Link.department_id).all():
+   print ("Department: {} Name: {}".format(x.Department.name, x.Employee.name))
 
 
 
