@@ -443,8 +443,11 @@ for x in session.query( Department, Employee).filter(Link.department_id == Depar
    Link.employee_id == Employee.id).order_by(Link.department_id).all():
    print ("Department: {} Name: {}".format(x.Department.name, x.Employee.name))
 
+[Внизу настройки для разных бд](https://coderlessons.com/tutorials/bazy-dannykh/sqlalchemy/sqlalchemy-kratkoe-rukovodstvo)
+[Отношения в таблице](https://docs.sqlalchemy.org/en/14/orm/basic_relationships.html)
+Есть 3 подхода декл не декл и связывания
 
-
+### Alembic
 
 ## Асинхронность и многопоточность и т. д. <a name="async_n_threads"></a>
 multithreading для парса 
