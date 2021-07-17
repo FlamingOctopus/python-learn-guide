@@ -147,6 +147,22 @@ session.rollback()
 session.close()
 
 
+conn.execute(addresses.insert(), [
+   {'st_id':1, 'postal_add':'Shivajinagar Pune', 'email_add':'ravi@gmail.com'},
+   {'st_id':1, 'postal_add':'ChurchGate Mumbai', 'email_add':'kapoor@gmail.com'},
+   {'st_id':3, 'postal_add':'Jubilee Hills Hyderabad', 'email_add':'komal@gmail.com'},
+   {'st_id':5, 'postal_add':'MG Road Bangaluru', 'email_add':'as@yahoo.com'},
+   {'st_id':2, 'postal_add':'Cannought Place new Delhi', 'email_add':'admin@khanna.com'},
+])
+
+
+ins = students.insert().values(name = 'Ravi', lastname = 'Kapoor')
+conn = engine.connect()
+result = conn.execute(ins)
+
+
+
+
 ## Асинхронность и многопоточность и т. д. <a name="async_n_threads"></a>
 multithreading для парса 
 
