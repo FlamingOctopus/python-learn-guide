@@ -256,7 +256,50 @@ stmt = select([students]).where(between(students.c.id,2,4))
 print (stmt)
 
 
+from sqlalchemy.sql import func
+result = conn.execute(select([func.now()]))
+print (result.fetchone())
 
+result = conn.execute(select([func.max(employee.c.marks)]))
+result = conn.execute(select([func.min(employee.c.marks)]))
+result = conn.execute(select([func.avg(employee.c.marks)]))
+print (result.fetchone())
+result = conn.execute(select([func.max(students.c.lastname).label('Name')]))
+print (result.fetchone())
+
+
+u = union(addresses.select().where(addresses.c.email_add.like('%@gmail.com addresses.select().where(addresses.c.email_add.like('%@yahoo.com'))))
+result = conn.execute(u)
+result.fetchall()Функция union () возвращает объект CompoundSelect из нескольких таблиц. Следующий пример демонстрирует его использование
+
+u = union_all(addresses.select().where(addresses.c.email_add.like('%@gmail.com')), addresses.select().where(addresses.c.email_add.like('%@yahoo.com')))
+
+u = except_(addresses.select().where(addresses.c.email_add.like('%@gmail.com')), addresses.select().where(addresses.c.postal_add.like('%Pune')))возвращает только те записи из таблицы адресов, которые имеют «gmail.com» в поле email_add, но исключают те, которые имеют «Pune» как часть поля postal_add.
+
+u = intersect(addresses.select().where(addresses.c.email_add.like('%@gmail.com')), addresses.select().where(addresses.c.postal_add.like('%Pune')))Одна возвращает строки, содержащие «gmail.com», как часть столбца email_add, а другая возвращает строки, содержащие «Pune» как часть столбца postal_add. Результатом будут общие строки из обоих наборов результатов.
+
+
+from sqlalchemy.orm import sessionmaker
+Session = sessionmaker(bind = engine)
+session = Session()
+c1 = Customers(name = 'Ravi Kumar', address = 'Station Road Nanded', email = 'ravi@gmail.com')
+session.add(c1)
+session.commit())
+
+session.add_all([
+   Customers(name = 'Komal Pande', address = 'Koti, Hyderabad', email = 'komal@gmail.com'), 
+   Customers(name = 'Rajender Nath', address = 'Sector 40, Gurgaon', email = 'nath@gmail.com'), 
+   Customers(name = 'S.M.Krishna', address = 'Budhwar Peth, Pune', email = 'smk@gmail.com')]
+)
+session.commit()
+
+
+from sqlalchemy.orm import sessionmaker
+Session = sessionmaker(bind = engine)
+session = Session()
+result = session.query(Customers).all()
+for row in result:
+   print ("Name: ",row.name, "Address:",row.address, "Email:",row.email)
 
 
 
