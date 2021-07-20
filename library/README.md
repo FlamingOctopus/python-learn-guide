@@ -58,7 +58,9 @@ https://python-scripts.com/logging-python
 
 
 ## Aiogram<a name="Aiogram"></a>
-
+[Деплой бота на сервер](https://bitbucket.org/vkasatkin/tele_bot/src/master/ubuntu18/)
+[Решение проблемы с распаковкой коллбэк даты](https://github.com/Abstract-X/tgbotcallback)
+[Коннект бд](https://t.me/botfatherdev/218)
 ## Alembic<a name="Alembic"></a>
 alembic init migrations(или другое название)
 target_metadata = Base.metadata
