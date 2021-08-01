@@ -61,6 +61,17 @@ https://python-scripts.com/logging-python
 [Деплой бота на сервер](https://bitbucket.org/vkasatkin/tele_bot/src/master/ubuntu18/)
 [Решение проблемы с распаковкой коллбэк даты](https://github.com/Abstract-X/tgbotcallback)
 [Коннект бд](https://t.me/botfatherdev/218)
+from aiogram.contrib.middlewares.logging import LoggingMiddleware
+dp.middleware.setup(LoggingMiddleware())
+
+async def shutdown(dispatcher: Dispatcher):
+    await dispatcher.storage.close()
+    await dispatcher.storage.wait_closed()
+И в поллере указываем её:
+
+if __name__ == '__main__':
+    executor.start_polling(dp, on_shutdown=shutdown)
+
 ## Alembic<a name="Alembic"></a>
 alembic init migrations(или другое название)
 target_metadata = Base.metadata
@@ -68,7 +79,274 @@ url = config.get_main_option("sqlite:///tg.db")
 
 alembic upgrade head
 alembic revision --autogenerate -m ""
+
+
+Docker
+Log into your Ubuntu installation as a user with sudo privileges.
+
+Update your APT package index.
+
+$ sudo apt-get update
+Install Docker.
+
+$ sudo apt-get install docker-engine
+Start the docker daemon.
+
+$ sudo service docker start
+Verify docker is installed correctly.
+
+$ sudo docker run hello-world
+
+
+
+$ sudo pacman -S docker
+
+is all that is needed.
+
+
+For the AUR package execute:
+
+
+$ yaourt -S docker-git
+
+The instructions here assume yaourt is installed. See Arch User Repository for information on building and installing packages from the AUR if you have not done so before.
+
+
+Starting Docker
+
+There is a systemd service unit created for docker. To start the docker service:
+
+
+$ sudo systemctl start docker
+
+To start on system boot:
+![img_1.png](img_1.png)![img_2.png](img_2.png)![img_3.png](img_3.png)![img_5.png](img_5.png)![img_4.png](img_4.png)
+
+$ sudo systemctl enable docker
+f@arch ~]$ sudo usermod -aG docker def
+[def@arch ~]$ sudo service docker restart
+sudo: service: command not found
+[def@arch ~]$ sudo systemctl docker restart
+Unknown command verb docker.
+[def@arch ~]$ sudo systemctl restart docker
+[def@arch ~]$
+sudo docker run -it ubuntu bash
+docker ps -a
+[def@arch ~]$ sudo docker start e940bbb900b0
+sudo docker stop e940bbb900b0
+sudo docker run -h testhost -t ubuntu bash
+sudo docker inspect agitated_varahamihira
+docker --name test-it ubunty bash
+[def@arch ~]$ sudo docker diff condescending_lederberg
+[def@arch ~]$ sudo docker logs condescending_lederberg
+docker rm name
+sudo docker run -d -p 8000:8080 bitnami/apache
+docker images
+https://wiki.archlinux.org/title/PostgreSQL_(%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9)#%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0_PostgreSQL
+
+
+
+
+
+
+rabbitmq
+
+Просто запустите сервис rabbitmq.
+   rabbitmq-plugins enable rabbitmq_management
+Затем перейдите на <ip_address_of_host>:15672. Учётные данные по умолчанию - guest:guest
+
+root@ip-172-31-33-210:/home/admin# rabbitmqctl add_user test test
+Creating user "test" ...
+Re-playCopy to ClipboardPauseFull View
+Устанавливаем его администратором:
+
+root@ip-172-31-33-210:/home/admin# rabbitmqctl set_user_tags test administrator
+Setting tags for user "test" to [administrator] ...
+Re-playCopy to ClipboardPauseFull View
+И права на все:
+
+root@ip-172-31-33-210:/home/admin# rabbitmqctl set_permissions -p / test ".*" ".*" ".*"
+Setting permissions for user "test" in vhost "/" ...
+Re-playCopy to ClipboardPauseFull View
+
+
+serviced service attach rabbitmq
+Delete the guest user account.
+rabbitmqctl delete_user guest
+Exit the container session.
+exit
+Restart the RabbitMQ service.
+serviced service restart rabbitmq
+
+
+#!/usr/bin/env python
+import pika
+connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+channel = connection.channel()
+channel.queue_declare(queue='hello')
+channel.basic_publish(exchange='',
+                     routing_key='hello',
+                     body='Hello World!')
+print(" [x] Sent 'Hello World!'")
+connection.close()
+#!/usr/bin/env python
+import pika
+
+connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+channel = connection.channel()
+
+channel.queue_declare(queue='hello')
+
+def callback(ch, method, properties, body):
+    print(" [x] Received %r" % body)
+
+channel.basic_consume(callback,
+                      queue='hello',
+                      no_ack=True)
+
+print(' [*] Waiting for messages. To exit press CTRL+C')
+channel.start_consuming()
+
+credentials = pika.PlainCredentials('username', 'password')
+parameters = pika.ConnectionParameters('serverip', credentials=credentials) 
+
+Вы можете сделать что-то подобное:
+
+credentials = pika.PlainCredentials('username','password')
+parameters = pika.URLParameters('amqp://username:password@localhost:5672/%2F')
+connection = pika.BlockingConnection(parameters)
+Если вы хотите подключиться к брокеру на другой машине , измените "localhost" выше на имя или IP адрес этой машины : Например, на клиенте B :
+
+parameters = pika.URLParameters('amqp://username:password@(ip of client A):5672/%2F')
+
+
+Полный код send.py:
+
+#!/usr/bin/env python
+import pika
+
+connection = pika.BlockingConnection(pika.ConnectionParameters(
+        host='localhost'))
+channel = connection.channel()
+
+channel.queue_declare(queue='hello')
+
+channel.basic_publish(exchange='',
+                      routing_key='hello',
+                      body='Hello World!')
+print " [x] Sent 'Hello World!'"
+connection.close()
+
+Полный код receive.py:
+
+#!/usr/bin/env python
+import pika
+
+connection = pika.BlockingConnection(pika.ConnectionParameters(
+        host='localhost'))
+channel = connection.channel()
+
+channel.queue_declare(queue='hello')
+
+print ' [*] Waiting for messages. To exit press CTRL+C'
+
+def callback(ch, method, properties, body):
+    print " [x] Received %r" % (body,)
+
+channel.basic_consume(callback,
+                      queue='hello',
+                      no_ack=True)
+
+channel.start_consuming()
+
+
+Ну а теперь все вместе
+
+Полный код программы new_task.py:
+
+#!/usr/bin/env python
+import pika
+import sys
+
+connection = pika.BlockingConnection(pika.ConnectionParameters(
+        host='localhost'))
+channel = connection.channel()
+
+channel.queue_declare(queue='task_queue', durable=True)
+
+message = ' '.join(sys.argv[1:]) or "Hello World!"
+channel.basic_publish(exchange='',
+                      routing_key='task_queue',
+                      body=message,
+                      properties=pika.BasicProperties(
+                         delivery_mode = 2, # make message persistent
+                      ))
+print " [x] Sent %r" % (message,)
+connection.close()
+Я
+Полный код программы worker.py:
+
+#!/usr/bin/env python
+import pika
+import time
+
+connection = pika.BlockingConnection(pika.ConnectionParameters(
+        host='localhost'))
+channel = connection.channel()
+
+channel.queue_declare(queue='task_queue', durable=True)
+print ' [*] Waiting for messages. To exit press CTRL+C'
+
+def callback(ch, method, properties, body):
+    print " [x] Received %r" % (body,)
+    time.sleep( body.count('.') )
+    print " [x] Done"
+    ch.basic_ack(delivery_tag = method.delivery_tag)
+
+channel.basic_qos(prefetch_count=1)
+channel.basic_consume(callback,
+                      queue='task_queue')
+
+channel.start_consuming()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+flask
+app.run(host='0.0.0.0', port=5000, debug=True, threaded=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Асинхронность <a name="async"></a>
+
+
 import asyncio
 
 async def foo():
@@ -1859,6 +2137,26 @@ for x in session.query( Department, Employee).filter(Link.department_id == Depar
 ```
 
 ## Парсинг <a name="scrap"></a>
+https://www.youtube.com/channel/UC8tgRQ7DOzAbn9L7zDL8mLg
+гезер должен вызывать 1 запрос а не 2
+попробовать сохранять инфу в файл, а потом парсить
+![img_6.png](img_6.png)
+грубый парсинг пандас 
+![img_7.png](img_7.png)
+splash and puppeter , селен в крайнем случае(но для рендера жс, лучше использовать поддержку реквестов)
+инсомния
+
+
+
+![img_8.png](img_8.png)
+
+![img_9.png](img_9.png)
+
+requests html
+
+
+![img_10.png](img_10.png)
+grquests
 Моменты на которые надо обратить внимание:
 ### Генерация юзерагента
 Тут поможет user_agent и fake_useragent. Опытные скрейперы могут попробовать установить свой агент на Googlebot User Agent — поисковый робот Google. Большинство веб-сайтов, очевидно, хотят попасть в выдачу Google и пропускают Googlebot.
