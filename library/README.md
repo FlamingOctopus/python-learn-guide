@@ -2160,7 +2160,11 @@ grquests
 Моменты на которые надо обратить внимание:
 ### Генерация юзерагента
 Тут поможет user_agent и fake_useragent. Опытные скрейперы могут попробовать установить свой агент на Googlebot User Agent — поисковый робот Google. Большинство веб-сайтов, очевидно, хотят попасть в выдачу Google и пропускают Googlebot.
+![img_11.png](img_11.png)
 
+![img_12.png](img_12.png)
+
+![img_13.png](img_13.png)
 [О ботах гугла](https://developers.google.com/search/docs/advanced/crawling/overview-google-crawlers?hl=en&visit_id=637602093540037819-4103600971&rd=1)
 
 [О ботах яндекс](
