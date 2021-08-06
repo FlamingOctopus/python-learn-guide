@@ -58,6 +58,13 @@ https://python-scripts.com/logging-python
 
 
 ## Aiogram<a name="Aiogram"></a>
+.env-все переменные пароли и т.д.
+form dotenv import load_dotenv
+load_dotenv()
+token=os.getenv('TOKEN')
+f"https://t.me/{bot_username}?start={id}"
+    referral = message.get_args()
+
 [Деплой бота на сервер](https://bitbucket.org/vkasatkin/tele_bot/src/master/ubuntu18/)
 [Решение проблемы с распаковкой коллбэк даты](https://github.com/Abstract-X/tgbotcallback)
 [Коннект бд](https://t.me/botfatherdev/218)
