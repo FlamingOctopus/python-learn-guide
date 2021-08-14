@@ -43,6 +43,31 @@
     9. [аргументы командной строки](#args)
 1. [Цикл разработки сайта ](#site)
 
+
+
+<!--  def captcha_solver(url, driver):
+    while True:
+        print("Капча")
+        lel = driver.find_element_by_name("h-captcha-response").get_attribute('id')
+        driver.execute_script(
+            f"document.getElementById('{lel}').style.display = 'block';document.getElementById('h-captcha-response')\
+            .style.display = 'block';")
+        sitekey = driver.find_elements_by_xpath("//div[@class='h-captcha']")[0].get_attribute('data-sitekey')
+        solver = TwoCaptcha(CAPTCHA_KEY)
+        result = solver.hcaptcha(sitekey=sitekey,
+                                 url=url,
+                                 )
+        e_captcha = driver.find_element_by_name("e-captcha-response")
+        e_captcha.clear()
+        e_captcha.send_keys(result['code'])
+        h_captcha = driver.find_element_by_name("h-captcha-response")
+        h_captcha.clear()
+        h_captcha.send_keys(result['code'])
+        driver.find_element_by_name("submit").click()
+        page = driver.page_source
+        if not ("Доступ временно заблокирован" in page):
+            return driver
+-->
 ## Тесты  и логирование <a name="test"></a>
 ### unittest(не рекомендуется, нарушает SOLID)
 
