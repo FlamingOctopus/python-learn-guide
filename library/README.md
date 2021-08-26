@@ -104,6 +104,23 @@ async def shutdown(dispatcher: Dispatcher):
 if __name__ == '__main__':
     executor.start_polling(dp, on_shutdown=shutdown)
 
+New _account, [16.08.21 05:25]
+Install the redis package.
+Start/enable redis.service.
+redis 127.0.0.1:6379> CONFIG SET requirepass "mypass"
+
+New _account, [16.08.21 21:34]
+sudo pacman -S postgresql
+sudo su - postgres -c "initdb --locale ru_RU.UTF-8 -E UTF8 -D '/var/lib/postgres/data'"
+systemctl start postgresql
+systemctl enable postgresql
+sudo su - postgres
+createuser -DRSP <username>
+createdb -O username databasename
+
+
+
+
 ## Alembic<a name="Alembic"></a>
 alembic init migrations(или другое название)
 target_metadata = Base.metadata
