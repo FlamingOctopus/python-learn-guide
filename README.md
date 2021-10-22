@@ -364,4 +364,5 @@ docker redis rabbitmq kafka celery jenkins ci/cd rest orm jira cassandra spark
 aws google cloud platform
 Принципы построение архитектуры = клиент-сервер, микросервис, монолит
 опыт разработки опыт проектирования архитектуры
-
+https://github.com/timofurrer/awesome-asyncio
+https://github.com/vinta/awesome-python
