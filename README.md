@@ -367,3 +367,4 @@ aws google cloud platform
 https://github.com/timofurrer/awesome-asyncio
 https://github.com/vinta/awesome-python
 https://emacsway.github.io/ru/service-layer/#application-logic
+https://habr.com/ru/company/yandex/blog/499534/
