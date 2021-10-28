@@ -366,3 +366,4 @@ aws google cloud platform
 опыт разработки опыт проектирования архитектуры
 https://github.com/timofurrer/awesome-asyncio
 https://github.com/vinta/awesome-python
+https://emacsway.github.io/ru/service-layer/#application-logic
