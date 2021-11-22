@@ -254,16 +254,18 @@ https://habr.com/ru/company/edison/blog/269789/
 [2](https://habr.com/ru/company/mailru/blog/337364/)
 
 #### Безопасность <a name="security"></a>
-* Хэш-алгоритмы
-* https
-* ssl/tls
-* политика защиты контента csp
-* cors
-* owasp security risks
-* security тактики
-* Авторизация/аутентификация oauth/jwt/mfa
-* SR
-* content security policy
+Необходимо знать что пароли в БД нужно хранить в зашифрованном виде с помощью хэш-функций. Необходимо знать что такое протокол https, протоколы ssl/tls. Знать что такое “политика защиты контента csp”, она например реализована в django. Что такое CORS(Кроссдоменные запросы).
+
+Знать разницу между авторизацией/аутентификацией. Знать что есть протокол авторизации oauth, стандарт jwt, mfa(Многофакторная аутентификация).
+
+Базовые уязвимости https://developer.mozilla.org/ru/docs/Learn/Server-side/First_steps/Website_security
+
+Топ 10 уязвимостей в этом году https://owasp.org/www-project-top-ten/
+
+Список атак на веб ресурсы https://owasp.org/www-community/attacks/
+
+Инструменты для сканирования на уязвимости https://owasp.org/www-community/Vulnerability_Scanning_Tools
+
 
 #### Качество кода <a name="code_qu"></a>
 * Следование стандартам разработки PEP8.
