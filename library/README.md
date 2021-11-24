@@ -6,7 +6,7 @@
 стратегия парсинга
 Методы обхода
 капча с примерами
-
+примеры парсинга токенов/пр
 
 ## Парсинг <a name="scrap"></a>
 https://www.youtube.com/channel/UC8tgRQ7DOzAbn9L7zDL8mLg
