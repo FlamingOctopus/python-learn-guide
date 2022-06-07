@@ -9,6 +9,7 @@
 примеры парсинга токенов/пр
 
 ## Парсинг <a name="scrap"></a>
+https://github.com/reanalytics-databoutique/webscraping-open-project
 https://www.youtube.com/channel/UC8tgRQ7DOzAbn9L7zDL8mLg
 гезер должен вызывать 1 запрос а не 2
 попробовать сохранять инфу в файл, а потом парсить
