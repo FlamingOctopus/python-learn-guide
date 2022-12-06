@@ -54,6 +54,7 @@
 Ближе к концу курса берешь книгу Лутца по питону(та что в двух томах)
 * [Книга. Том 1](https://codernet.ru/books/python/izuchaem_python_5-e_izd_tom_1_mark_lutc/)
 * [Книга. Том 2](https://codernet.ru/books/python/izuchaem_python_5-e_izd_tom_2_mark_lutc/)
+
 <b>Ее НЕ надо читать, она написана в трудном для восприятия стиле, после 10 страниц тебе уже захочется бросить и книгу и программирование в целом.</b>
 
 Что нужно с ними делать:
@@ -69,7 +70,7 @@
 * https://www.youtube.com/c/PythonToday
 * https://www.youtube.com/c/ZProgerIT
 * https://www.youtube.com/@JohnWatsonRooney/videos
-Также книжка аналог каналов, можно пролистать[Книга рецептов](https://codernet.ru/books/python/python_kniga_receptov/)   
+* Также книжка аналог каналов, можно пролистать[Книга рецептов](https://codernet.ru/books/python/python_kniga_receptov/)   
 
 Ну и в заключении по питону, можно порекомендовать изучить правила форматирования и написания кода(KISS, DRY, pep8), ну и правила нейминга. Вообще т.к. вы пользуйтесь IDE(скорее всего), то встроенный линтер вас приучит к этому.
 
